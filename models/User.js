@@ -36,7 +36,6 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function (next) {
     var user = this;
-    console.log(user)
         if(user.isModified('password')){
             bcrypt.genSalt(saltRounds, function (err, salt) {
                 if(err) return next(err)
@@ -74,9 +73,11 @@ userSchema.methods.generateToken = function (cb) {
 
 userSchema.statics.findByToken = function (token, callback) {
     var user = this;
-    jwt.verify(token,secretToken, function (err, decoded) {
+    jwt.verify(token,'secretToken', function (err, decoded) {
         user.findOne({ "_id": decoded, "token": token }, function (err, user) {
-            if (err) return callback(err)
+            if (err) {
+                return callback(err)
+            }
             callback(null,user)
         })
     })

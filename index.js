@@ -3,8 +3,8 @@ const app = express()
 const port = 5000
 const cookieParser = require('cookie-parser')
 const { User } = require("./models/User")
+const config = require('./config/key')
 const { auth } = require("./middleware/auth")
-const config= require('./config/key')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -37,9 +37,6 @@ app.post('/login', (req, res) => {
         }
 
         user.comparePassword(req.body.password, (err, isMatch) => {
-            console.log("isMatch", isMatch)
-            console.log(req.body.password, "req.body.password")
-            console.log(user.password,"plainPassword")
             if (!isMatch)
                 return res.json({
                     loginSuccess: false,
@@ -52,12 +49,11 @@ app.post('/login', (req, res) => {
                     .status(200)
                     .json({ loginSuccess: true, userId: user._id })
             })
-
         })
     })
 })
 
-app.get('/auth', auth , (req, res) => {
+app.get('/auth', auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
@@ -66,16 +62,19 @@ app.get('/auth', auth , (req, res) => {
         name: req.user.name,
         role: req.user.role,
         image:req.user.image
-
-        
     })
 })
 
 
-app.get('/logout', auth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, { token: '' }
-        , (err, user) => {
-            if (err) return res.json({ success: false, err })
+app.get('/logout', auth, (res, req) => {
+
+    User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (err, user) => {
+            if (err) {
+                return res.json({
+                    success: false,
+                    err
+                })
+            }
             return res.status(200).send({
                 success:true
             })
