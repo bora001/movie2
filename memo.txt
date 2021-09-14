@@ -1,0 +1,8 @@
+- express
+- mongoose
+- MongoDB
+- body-parser
+- nodemon
+- bcrypt
+- jsonwebtoken
+- cookie-parser
