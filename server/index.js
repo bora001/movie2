@@ -6,6 +6,8 @@ const config = require('./config/key')
 const { auth } = require("./middleware/auth")
 const { User } = require("./models/User")
 
+
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
@@ -17,7 +19,13 @@ mongoose.connect(config.mongoUrl, {
 
 app.get('/', (req, res) => res.send("this is main"))
 
-app.post('/register', (req, res) => {
+//client-axios
+app.get('/api/hello', (req, res) => {
+    res.send("axiossssss")
+})
+
+
+app.post('/api/users/register', (req, res) => {
     const user = new User(req.body)
     user.save((err, userInfo) => {
         if (err) return res.json({ success: false, err })
@@ -27,7 +35,7 @@ app.post('/register', (req, res) => {
     })
 })
 
-app.post('/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
     
     User.findOne({ email: req.body.email }, (err, user) => {
         if (!user) {
@@ -55,7 +63,7 @@ app.post('/login', (req, res) => {
 
 })
 
-app.get('/auth', auth, (req, res) => {
+app.get('/api/users/auth', auth, (req, res) => {
 
     console.log("yo")
     res.status(200).json({
@@ -70,7 +78,7 @@ app.get('/auth', auth, (req, res) => {
     })
 })
 
-app.post('/logout', auth, (req, res) => {
+app.post('/api/users/logout', auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (err, user) => {
         if (err) {
                 return res.json({

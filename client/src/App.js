@@ -14,8 +14,8 @@ function App() {
           <div>
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/api/users/login" component={LoginPage} />
+            <Route exact path="/api/users/register" component={RegisterPage} />
           </Switch>
           </div>
       </Router>
