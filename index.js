@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const port = 5000
 const cookieParser = require('cookie-parser')
-const { User } = require("./models/User")
 const config = require('./config/key')
 const { auth } = require("./middleware/auth")
+const { User } = require("./models/User")
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -28,6 +28,7 @@ app.post('/register', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
+    
     User.findOne({ email: req.body.email }, (err, user) => {
         if (!user) {
             return res.json({
@@ -51,29 +52,32 @@ app.post('/login', (req, res) => {
             })
         })
     })
+
 })
 
 app.get('/auth', auth, (req, res) => {
+
+    console.log("yo")
     res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
         isAuth: true,
         email: req.user.email,
         name: req.user.name,
+        lastname:user.lastname,
         role: req.user.role,
         image:req.user.image
     })
 })
 
-
-app.get('/logout', auth, (res, req) => {
-
+app.post('/logout', auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (err, user) => {
-            if (err) {
+        if (err) {
                 return res.json({
                     success: false,
                     err
                 })
+            
             }
             return res.status(200).send({
                 success:true

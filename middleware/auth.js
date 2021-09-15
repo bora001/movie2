@@ -2,9 +2,9 @@ const { User } = require("../models/User")
 
 let auth = (req, res, next) => {
     let token = req.cookies.x_auth;
-
     User.findByToken(token, (err, user) => {
         if (err) {
+            console.log("aut")
             throw err;
         }
         if (!user) {
@@ -13,7 +13,6 @@ let auth = (req, res, next) => {
                 error: true
             })
         }
-        console.log(req.token)
         req.token = token;
         req.user = user;
         next();
