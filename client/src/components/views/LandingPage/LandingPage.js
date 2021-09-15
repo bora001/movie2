@@ -10,7 +10,7 @@ function LandingPage() {
 
     return (
         <div>
-            Landdding
+            Landdding 랜딩
         </div>
     )
 }
