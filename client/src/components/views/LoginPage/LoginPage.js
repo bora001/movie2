@@ -1,14 +1,15 @@
-import React, {useState} from 'react'
+// import { response } from 'express';
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import {loginUser} from '../../../_actions/user_action'
+import { loginUser } from '../../../_actions/user_action'
 
-
-function LoginPage() {
+function LoginPage(props) {
 
     const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
+    
     const onEmailHandler = (event) => {
         setEmail(event.currentTarget.value)
     }
@@ -22,12 +23,16 @@ function LoginPage() {
         
         let body = {
             email: Email,
-            Password:Password
+            password:Password
         }
 
-
-        dispatch(loginUser(body))
-
+        dispatch(loginUser(body)).then(response => {
+                if (response.payload.loginSuccess) {
+                props.history.push('/')
+                } else {
+                    alert("error")
+            }
+        })
 
     }
     
@@ -40,7 +45,7 @@ function LoginPage() {
                 <label>Password</label>
                 <input type="password" value={Password} onChange={onPasswordHandler} />
                 <br />
-                <button>Login</button>
+                <button type="submit">Login</button>
                 
             </form>
         </div>
