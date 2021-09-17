@@ -4,13 +4,12 @@ let auth = (req, res, next) => {
     let token = req.cookies.x_auth;
     User.findByToken(token, (err, user) => {
         if (err) {
-            console.log("aut")
             throw err;
         }
         if (!user) {
             return res.json({
                 isAuth: false,
-                error: true
+                error: true,
             })
         }
         req.token = token;

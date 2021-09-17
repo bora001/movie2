@@ -24,7 +24,6 @@ app.get('/api/hello', (req, res) => {
     res.send("axiossssss")
 })
 
-
 app.post('/api/users/register', (req, res) => {
     const user = new User(req.body)
     user.save((err, userInfo) => {
@@ -60,12 +59,10 @@ app.post('/api/users/login', (req, res) => {
             })
         })
     })
-
 })
 
 app.get('/api/users/auth', auth, (req, res) => {
 
-    console.log("yo")
     res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
@@ -78,14 +75,15 @@ app.get('/api/users/auth', auth, (req, res) => {
     })
 })
 
-app.post('/api/users/logout', auth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (err, user) => {
+app.get('/api/users/logout', auth, (req, res) => {
+    User.findOneAndUpdate({ _id: req.user._id },
+        { token: '' }
+        , (err, user) => {
         if (err) {
                 return res.json({
                     success: false,
                     err
                 })
-            
             }
             return res.status(200).send({
                 success:true
