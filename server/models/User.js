@@ -33,7 +33,6 @@ const userSchema = mongoose.Schema({
         type:Number
     }
 })
-
 userSchema.pre('save', function (next) {
     var user = this;
         if(user.isModified('password')){
@@ -65,7 +64,9 @@ userSchema.methods.generateToken = function (cb) {
     var token = jwt.sign(user._id.toHexString(), 'secretToken')
     user.token = token;
     user.save(function (err, user) {
-        if (err) return cb(err)
+        if (err) {
+            return cb(err, "methods generateToken error")
+        }
         cb(null,user)
     })
 
@@ -76,9 +77,9 @@ userSchema.statics.findByToken = function (token, callback) {
     jwt.verify(token, 'secretToken', function (err, decoded) {
         user.findOne({ "_id": decoded, "token": token }, function(err, user){
             if (err) {
-                return callback(err)
+                return callback(err, user , "statics,token,arror")
             }
-            callback(null,user)
+            callback(null,user,"callback")
         })
     })
 }

@@ -52,7 +52,9 @@ app.post('/api/users/login', (req, res) => {
                 })
             
             user.generateToken((err, user) => {
-                if (err) return res.status(400).send(err);
+                if (err) {
+                    return res.status(400).send(err, "index generateToken error");
+                }
                 res.cookie("x_auth", user.token)
                     .status(200)
                     .json({ loginSuccess: true, userId: user._id })
@@ -85,9 +87,9 @@ app.get('/api/users/logout', auth, (req, res) => {
                     err
                 })
             }
-            return res.status(200).send({
-                success:true
-            })
+        return res.status(200).send({
+            success:true
+        })
     })
 })
 
