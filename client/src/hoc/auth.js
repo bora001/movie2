@@ -12,7 +12,26 @@ export default function (SpecificComponent, option, adminRoute = null) {
         useEffect(() => {
             dispatch(authUser())
                 .then(response => {
-                console.log(response)
+                    console.log(response)
+                    
+                    if (!response.payload.isAuth) {
+                        //no login
+                        if (option) {
+                            props.history.push('/')
+                        }
+                    
+                    } else {
+                        // did login
+                        if (adminRoute && !response.payload.isAdmin) {
+                            //not admin
+                            props.history.push('/')
+                        } else {
+                            if (option === false) {
+                                props.history.push('/')
+                            }
+                        }
+                
+                    }
                 })
 
         }, [])

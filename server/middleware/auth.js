@@ -12,8 +12,8 @@ let auth = (req, res, next) => {
                 error: true,
             })
         }
-        console.log(token,"token")
-        console.log(user,"user")
+        // console.log(token,"token")
+        // console.log(user, "user")
         req.token = token;
         req.user = user;
         next();
