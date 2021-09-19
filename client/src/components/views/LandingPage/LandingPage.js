@@ -1,13 +1,29 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import "./LandingPage.css"
+let status = {
+        loginStatus:false
+    };
 
 function LandingPage(props) {
 
     useEffect(() => {
-        axios.get('/api/hello')
-            .then(response => { console.log(response)})
-    }, [])
+        axios.get(`/api/users/auth`)
+            .then(response => {
+                if (response.data.isAuth) {
+                    status.loginStatus = true
+                } else {
+                    status.loginStatus = false
+                }
+            })
+    })
+        
+                    
+    // useEffect(() => {
+    //     axios.get('/api/hello')
+    //         .then(response => { console.log(response)})
+    // }, [])
     
     const onLogoutHandler = () => {
         axios.get(`/api/users/logout`)
@@ -19,10 +35,19 @@ function LandingPage(props) {
             }
         })
     }
+
+    // console.log(response)
+
     return (
-        <div>
-            Landdding 랜딩
-            <button onClick={onLogoutHandler}>로그아웃</button>
+        <div className="landing_page">
+            <h2>Thank you for visiting !</h2>
+            <div className="btn_box">
+                {status.loginStatus ? <button onClick={onLogoutHandler}>LOGOUT</button>
+                    : <div >
+                        <button><a href="/register">REGISTER</a></button>
+                        <button><a href="/login">LOGIN</a></button>
+                    </div>}
+            </div>
         </div>
     )
 }
