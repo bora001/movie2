@@ -12,12 +12,15 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
 
+app.use('/api/fav', require('./router/favRouter'))
+
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoUrl, {
     useNewUrlParser:true,useUnifiedTopology:true
 }).then(()=>console.log("MongoDB is connected....")).catch(err=>console.log(err))
 
 app.get('/', (req, res) => res.send("this is main"))
+
 
 //client-axios
 app.get('/api/hello', (req, res) => {
@@ -91,6 +94,7 @@ app.get('/api/users/logout', auth, (req, res) => {
         })
     })
 })
+
 
 
 app.listen(port, () => console.log(`localhost:${port}`))

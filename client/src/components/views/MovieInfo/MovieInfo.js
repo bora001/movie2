@@ -8,7 +8,11 @@ import {API_URL, IMAGE_URL } from '../../../Config'
 import { Row } from 'antd'
 import Grid from './../../common/Grid'
 
+import FavoriteBtn from './FavoriteBtn'
+
 function MovieInfo(props) {
+
+
     let movieId = props.match.params.movieId
 
     // MainImage
@@ -61,23 +65,28 @@ function MovieInfo(props) {
 
     return (
         <div>
-            {MainMovieImage && <MainImage title={MainMovieImage.original_title} rate={MainMovieImage.vote_average} release={MainMovieImage.release_date} desc={MainMovieImage.overview} image={`${IMAGE_URL}w1280${MainMovieImage.backdrop_path}`}/>}
-            <h2>Movie Info</h2>
-            <MovieInfoDetail movie={Movie} genre={Genre} />
-            <button onClick={onViewCast}>View Casts</button>
-
-            {ViewCast &&
-            <Row gutter={[16, 16]}>
-                        {Cast && Cast.map((cast, index) => (
-                            <React.Fragment key={index}>
-                                <Grid
-                                    image={cast.profile_path ? `${IMAGE_URL}w500${cast.profile_path}` : `https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png`}
-                                    name={cast.name} character={cast.character}
-                                />
-                            </React.Fragment>
-                        ))}
-                </Row>
-            }
+            {MainMovieImage && <MainImage title={MainMovieImage.original_title} rate={MainMovieImage.vote_average} release={MainMovieImage.release_date} desc={MainMovieImage.overview} image={`${IMAGE_URL}w1280${MainMovieImage.backdrop_path}`} />}
+            
+            <div style={{width:'90%', margin:'0 auto'}}>
+                <h2>Movie Info</h2>
+                <MovieInfoDetail movie={Movie} genre={Genre} />
+                <div className="btn_box" style={{display:'flex',justifyContent:'center', margin:'15px 0'}}>
+                    <button onClick={onViewCast}>View Casts</button>
+                    <FavoriteBtn movieInfo={Movie} movieId={movieId} />
+                </div>
+                {ViewCast &&
+                <Row gutter={[16, 16]}>
+                            {Cast && Cast.map((cast, index) => (
+                                <React.Fragment key={index}>
+                                    <Grid
+                                        image={cast.profile_path ? `${IMAGE_URL}w500${cast.profile_path}` : `https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png`}
+                                        name={cast.name} character={cast.character}
+                                    />
+                                </React.Fragment>
+                            ))}
+                    </Row>
+                    }
+            </div>
         </div>
     )
 }
