@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 const favSchema = mongoose.Schema({
     theUser: {
         type: Schema.Types.ObjectId,
