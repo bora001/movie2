@@ -3,32 +3,31 @@ import axios from 'axios'
 
 function FavoriteBtn(props) {
 
-    console.log("props",props)
+    // console.log("props",props)
     const movieId = props.movieId
     const movieTitle = props.movieInfo.title
     const moviePic = props.movieInfo.backdrop_path
     const movieRuntime = props.movieInfo.runtime
-    const userFrom = document.cookie.split('=')[1]
+    const theUser = document.cookie.split('=')[1]
 
 const [FavNum, setFavNum] = useState(0)
 const [Faved, setFaved] = useState(false)
 
 
     let favDetail = {
-        userFrom,
+        theUser,
         movieId,
         movieTitle,
         moviePic,
         movieRuntime
     }
-
     
     useEffect(() => {
 
         //axios->post-> the address for the server
         axios.post('/api/fav/fav-num', favDetail)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 setFavNum(response.data.favNum)
 
                 if (response.data.success) {
@@ -42,8 +41,7 @@ const [Faved, setFaved] = useState(false)
                 .then(response => {
                     setFaved(response.favorited)
                     if (response.data.success) {
-                    console.log('favorite',response.data)
-                    
+                    // console.log('favorite',response.data)
                     } else {
                         alert('failed to get your favorite information')
                     }
@@ -51,16 +49,32 @@ const [Faved, setFaved] = useState(false)
 
     }, [])
 
+ 
     function onFavBtn() {
-        setFaved(!Faved)
-        
-        if (!Faved) {
-            setFavNum(FavNum + 1)
-        } else {
-            setFavNum(FavNum - 1)
-        }
-    }
-
+    
+            if (Faved) {
+                axios.post('/api/fav/removeFav', favDetail)
+                    .then(response => {
+                        if (response.data.success) {
+                            setFaved(!Faved)
+                            setFavNum(FavNum - 1)
+                        } else {
+                            alert("failed to add")
+                        }
+                    })
+            }else{
+                axios.post('/api/fav/addFav', favDetail)
+                    .then(response => {
+                        if (response.data.success) {
+                            setFaved(!Faved)
+                            setFavNum(FavNum + 1)
+                        } else {
+                            alert("failed to remove")
+                        }
+                })
+            }
+       
+            }
     return (
         <div>
             <button onClick={onFavBtn} style={{ position: "relative", width: '100px', paddingRight: '25px', backgroundColor: "rgb(233, 76, 76)" }}>

@@ -3,19 +3,21 @@ const Schema = mongoose.Schema;
 
 const favSchema = mongoose.Schema({
     theUser: {
-        type: Schema.Types.ObjectId,
-        ref:'User'
+        type: String,
     },
     movieId: {
-        type:String
+        type: String
     },
     movieTitle: {
-        type:String
+        type: String
     },
     moviePost: {
-        type:String
+        type: String
     },
     movieRuntime: {
+        type: String
+    },
+    moviePic:{
         type:String
     }
 
