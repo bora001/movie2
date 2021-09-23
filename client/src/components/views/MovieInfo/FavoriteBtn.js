@@ -28,9 +28,10 @@ const [Faved, setFaved] = useState(false)
         axios.post('/api/fav/fav-num', favDetail)
             .then(response => {
                 // console.log(response.data)
-                setFavNum(response.data.favNum)
 
                 if (response.data.success) {
+                    setFavNum(response.data.favNum)
+
                 } else {
                     alert('failed to get your favorite information')
                 }
@@ -51,7 +52,9 @@ const [Faved, setFaved] = useState(false)
 
  
     function onFavBtn() {
-    
+        if (!theUser) {
+            alert('To like this movie, Please Login')
+        } else {
             if (Faved) {
                 axios.post('/api/fav/removeFav', favDetail)
                     .then(response => {
@@ -73,6 +76,7 @@ const [Faved, setFaved] = useState(false)
                         }
                 })
             }
+        }
        
             }
     return (

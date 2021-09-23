@@ -33,21 +33,19 @@ router.post('/favorited', (req, res) => {
         })
 })
 
-router.post('/addFav', (req, res) => {
-    // console.log(req.body)
-    const newFav = new favorite(req.body);
 
+router.post('/addFav', (req, res) => {
+    const newFav = new favorite(req.body);
     newFav.save((err, doc) => {
-        if (err) {
-            return res.status(400).send(err)
-        }
-        return res.status(200).json({success : true})
-    })
+                        if (err) {
+                            return res.status(400).send(err)
+                        }
+                        return res.status(200).json({success : true})
+                    })
+    
 })
 
-
 router.post('/removeFav', (req, res) => {
-    console.log("the revmoe???", req.body)
     favorite.findOneAndDelete({ movieID: req.body.movieId, theUser: req.body.theUser })
         .exec((err, doc) => {
             if (err) {
@@ -57,5 +55,14 @@ router.post('/removeFav', (req, res) => {
     })
 })
 
+router.post('/getFav', (req, res) => {
+    favorite.find({'theUser': req.body.theUser })
+        .exec((err, favorites) => {
+            if (err) {
+            return res.status(400).send(err)
+            }
+            return res.status(200).json({success:true, favorites})
+    })
+})
 
 module.exports = router

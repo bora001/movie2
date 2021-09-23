@@ -76,11 +76,16 @@ function LandingPage(props) {
             <div className="intro_box">
                 <h2>Thank you for visiting !</h2>
                 <div className="btn_box">
-                    {status.loginStatus ? <button onClick={onLogoutHandler}>LOGOUT</button>
-                        : <div >
-                        <button><a href="/register">REGISTER</a></button>
-                        <button><a href="/login">LOGIN</a></button>
-                    </div>}
+                    {status.loginStatus
+                        ?<div>
+                            <button onClick={onLogoutHandler}>LOGOUT</button>
+                            <button><a href="/fav">FAVORITE</a></button>
+                        </div>
+                        :
+                        <div >
+                            <button><a href="/register">REGISTER</a></button>
+                            <button><a href="/login">LOGIN</a></button>
+                        </div>}
                 </div>
             </div>
 
