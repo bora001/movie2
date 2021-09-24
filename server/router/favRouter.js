@@ -4,7 +4,6 @@ const router = express.Router()
 const { favorite } = require('../models/Favorite') 
 
 // front fav server : /api/fav/fav-num    /api/fav/favorited
-
 router.post('/fav-num', (req, res) => {
     
     favorite.find({ "movieId": req.body.movieId })
@@ -33,15 +32,14 @@ router.post('/favorited', (req, res) => {
         })
 })
 
-
 router.post('/addFav', (req, res) => {
     const newFav = new favorite(req.body);
     newFav.save((err, doc) => {
-                        if (err) {
-                            return res.status(400).send(err)
-                        }
-                        return res.status(200).json({success : true})
-                    })
+        if (err) {
+            return res.status(400).send(err)
+        }
+        return res.status(200).json({success : true})
+        })
     
 })
 
@@ -62,6 +60,17 @@ router.post('/getFav', (req, res) => {
             return res.status(400).send(err)
             }
             return res.status(200).json({success:true, favorites})
+    })
+})
+
+router.post('/deleteFav', (req, res) => {
+    console.log(req.body)
+    favorite.findOneAndDelete({ 'theUser': req.body.theUser })
+        .exec((err, removefav) => {
+            if (err) {
+            return res.status(400).send(err)
+            }
+            return res.status(200).json({success:true, removefav})
     })
 })
 

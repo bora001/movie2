@@ -8,7 +8,10 @@ function FavPage() {
     const [Favorites, setFavorites] = useState([])
 
     useEffect(() => {
+        getFav()
+    }, [])
 
+    function getFav() {
         axios.post('/api/fav/getFav', {theUser: document.cookie.split('=')[1]})
             .then(response => {
                 if (response.data.success) {
@@ -17,24 +20,31 @@ function FavPage() {
                     alert('failed to get your favorite movies')
                 }
             })
-    }, [])
+    }
 
+    function onDeleteFav(movie) {
+      axios.post('/api/fav/deleteFav', movie)
+            .then(response => {
+                if (response.data.success) {
+                     getFav()
+                } else {
+                    alert('failed to get your favorite movies')
+                }
+            })
+    }
 
     return (
         <div>
             <h2>Favorite Movies</h2>
-                
-               {Favorites && Favorites.map((movie, index) => (
-                   <>
-                        <img src={ `${IMAGE_URL}w500${movie.moviePic}`} />
+            {Favorites && Favorites.map((movie, index) => (
+                <React.Fragment key={index}>
+                        <img src={`${IMAGE_URL}w400${movie.moviePic}`} />
                         <p>{movie.movieTitle}</p>
                         <p>{movie.movieRuntime}</p>
-                    </>
-               ))}
-                    
-                    <p>Remove</p>
-                </div>
-            
+                    <button onClick={()=>onDeleteFav(movie)}>Remove</button>
+                </React.Fragment>
+            ))}
+        </div>
     )
 }
 

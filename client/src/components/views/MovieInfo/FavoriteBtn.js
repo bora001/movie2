@@ -28,25 +28,22 @@ const [Faved, setFaved] = useState(false)
         axios.post('/api/fav/fav-num', favDetail)
             .then(response => {
                 // console.log(response.data)
-
                 if (response.data.success) {
                     setFavNum(response.data.favNum)
-
                 } else {
                     alert('failed to get your favorite information')
                 }
             })
-
         
         axios.post('/api/fav/favorited', favDetail)
-                .then(response => {
-                    setFaved(response.favorited)
-                    if (response.data.success) {
-                    // console.log('favorite',response.data)
-                    } else {
-                        alert('failed to get your favorite information')
-                    }
-                })    
+            .then(response => {
+                setFaved(response.favorited)
+                if (response.data.success) {
+                // console.log('favorite',response.data)
+                } else {
+                    alert('failed to get your favorite information')
+                }
+            })    
 
     }, [])
 
@@ -77,7 +74,6 @@ const [Faved, setFaved] = useState(false)
                 })
             }
         }
-       
             }
     return (
         <div>
