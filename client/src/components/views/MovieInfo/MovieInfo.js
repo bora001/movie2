@@ -8,7 +8,7 @@ import { Row } from 'antd'
 import Grid from './../../common/Grid'
 
 import FavoriteBtn from './FavoriteBtn'
-const config = require('../../../Config/key')
+const config = require('../../config/key')
 const API_KEY = config.movieAPI;
 
 function MovieInfo(props) {

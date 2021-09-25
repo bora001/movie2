@@ -6,8 +6,8 @@ import "./LandingPage.css"
 import { API_URL, IMAGE_URL } from '../../../Config'
 import MainImage from './MovieSection/MainImage'
 import Grid from './../../common/Grid'
-import { Row } from 'antd'
-const config = require('../../../Config/key')
+import { Row } from 'antd';
+const config = require('../../config/key')
 const API_KEY = config.movieAPI;
 
 let status = {

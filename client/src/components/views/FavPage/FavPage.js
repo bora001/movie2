@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import { withRouter } from 'react-router-dom'
-import { API_URL, IMAGE_URL } from '../../../Config'
+import { IMAGE_URL } from '../../../Config'
 
 function FavPage() {
 
@@ -38,7 +38,7 @@ function FavPage() {
             <h2>Favorite Movies</h2>
             {Favorites && Favorites.map((movie, index) => (
                 <React.Fragment key={index}>
-                        <img src={`${IMAGE_URL}w400${movie.moviePic}`} />
+                    <img src={`${IMAGE_URL}w400${movie.moviePic}`} alt={movie.movieTitle}/>
                         <p>{movie.movieTitle}</p>
                         <p>{movie.movieRuntime}</p>
                     <button onClick={()=>onDeleteFav(movie)}>Remove</button>
