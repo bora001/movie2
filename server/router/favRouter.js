@@ -1,11 +1,8 @@
-// import { favorite } from '../models/Favorite'
 const express = require('express')
 const router = express.Router()
 const { favorite } = require('../models/Favorite') 
 
-// front fav server : /api/fav/fav-num    /api/fav/favorited
 router.post('/fav-num', (req, res) => {
-    
     favorite.find({ "movieId": req.body.movieId })
         .exec((err, info) => {
             if (err) {
@@ -33,6 +30,7 @@ router.post('/favorited', (req, res) => {
 })
 
 router.post('/addFav', (req, res) => {
+
     const newFav = new favorite(req.body);
     newFav.save((err, doc) => {
         if (err) {
@@ -44,6 +42,7 @@ router.post('/addFav', (req, res) => {
 })
 
 router.post('/removeFav', (req, res) => {
+    
     favorite.findOneAndDelete({ movieID: req.body.movieId, theUser: req.body.theUser })
         .exec((err, doc) => {
             if (err) {

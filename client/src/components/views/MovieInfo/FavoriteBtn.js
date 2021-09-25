@@ -10,9 +10,8 @@ function FavoriteBtn(props) {
     const movieRuntime = props.movieInfo.runtime
     const theUser = document.cookie.split('=')[1]
 
-const [FavNum, setFavNum] = useState(0)
-const [Faved, setFaved] = useState(false)
-
+    const [FavNum, setFavNum] = useState(0)
+    const [Faved, setFaved] = useState(false)
 
     let favDetail = {
         theUser,
@@ -23,30 +22,51 @@ const [Faved, setFaved] = useState(false)
     }
     
     useEffect(() => {
-
-        //axios->post-> the address for the server
-        axios.post('/api/fav/fav-num', favDetail)
-            .then(response => {
-                // console.log(response.data)
-                if (response.data.success) {
-                    setFavNum(response.data.favNum)
-                } else {
-                    alert('failed to get your favorite information')
-                }
-            })
-        
-        axios.post('/api/fav/favorited', favDetail)
-            .then(response => {
-                setFaved(response.favorited)
-                if (response.data.success) {
-                // console.log('favorite',response.data)
-                } else {
-                    alert('failed to get your favorite information')
-                }
-            })    
-
+        getFavNum()
+        getFav()
+        // checkFav()
     }, [])
 
+    
+    function getFav() {
+        axios.post('/api/fav/getFav', {theUser: document.cookie.split('=')[1]})
+            .then(response => {
+                if (response.data.success) {
+                    if (response.data.favorites.length == 1) {
+                        console.log("you you did")
+                        setFaved(true)
+                    } else {
+                        setFaved(false)
+                    }
+                } else {
+                    alert('failed to get your favorite movies')
+                }
+            })
+    }
+
+    // function checkFav() {
+    //     axios.post('/api/fav/favorited', favDetail)
+    //     .then(response => {
+    //         setFaved(response.favorited)
+    //         if (response.data.success) {
+    //             setFaved(response.data.favorited)
+    //         } else {
+    //             alert('failed to get your favorite information')
+    //         }
+    //     })    
+    // }
+
+    function getFavNum() {
+        axios.post('/api/fav/fav-num', favDetail)
+        .then(response => {
+            if (response.data.success) {
+                console.log(response.data)
+                setFavNum(response.data.favNum)
+            } else {
+                alert('failed to get your favorite information')
+            }
+        })
+    }
  
     function onFavBtn() {
         if (!theUser) {
@@ -56,6 +76,7 @@ const [Faved, setFaved] = useState(false)
                 axios.post('/api/fav/removeFav', favDetail)
                     .then(response => {
                         if (response.data.success) {
+                            console.log(response.data,"remove")
                             setFaved(!Faved)
                             setFavNum(FavNum - 1)
                         } else {
@@ -74,14 +95,15 @@ const [Faved, setFaved] = useState(false)
                 })
             }
         }
-            }
+    }
+
     return (
         <div>
             <button onClick={onFavBtn} style={{ position: "relative", width: '100px', paddingRight: '25px', backgroundColor: "rgb(233, 76, 76)" }}>
-                {Faved? ` Liked ${FavNum}`: 'like it?'}
-                {/* Like<span style={{ position: 'absolute', margin: '-1px 5px 0' }}>👍</span> */}
+            {Faved? ` Liked ${FavNum}`: 'like it?'}
             </button>
         </div>
+        
     )
 }
 
