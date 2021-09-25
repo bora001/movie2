@@ -4,10 +4,11 @@ import { withRouter } from 'react-router-dom'
 import "./LandingPage.css"
 
 import { API_URL, IMAGE_URL } from '../../../Config'
-import { API_KEY } from '../../../MovieApi'
 import MainImage from './MovieSection/MainImage'
 import Grid from './../../common/Grid'
 import { Row } from 'antd'
+const config = require('../../../Config/key')
+const API_KEY = config.movieAPI;
 
 let status = {
         loginStatus:false

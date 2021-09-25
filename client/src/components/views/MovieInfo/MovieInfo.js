@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { API_KEY } from '../../../MovieApi'
 import { withRouter } from 'react-router-dom'
 import MovieInfoDetail from './MovieInfoDetail'
 
@@ -9,6 +8,8 @@ import { Row } from 'antd'
 import Grid from './../../common/Grid'
 
 import FavoriteBtn from './FavoriteBtn'
+const config = require('../../../Config/key')
+const API_KEY = config.movieAPI;
 
 function MovieInfo(props) {
 
