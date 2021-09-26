@@ -8,40 +8,15 @@ import { Row } from 'antd'
 import Grid from './../../common/Grid'
 
 import FavoriteBtn from './FavoriteBtn'
-// import{ API_KEY} from '../../../MovieApi'
+// import { API_KEY } from '../../../MovieApi'
 import axios from 'axios'
 
 function MovieInfo(props) {
 
-    let API_KEY = '';
     let movieId = props.match.params.movieId
-
     // MainImage
     const [MainMovieImage, setMainMovieImage] = useState(null)
-        // const endPoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US&page=1`;
 
-    useEffect(() => {
-        //get api
-            axios.get('/api/movieapi')
-            .then(response => {
-                API_KEY = response.data
-                const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-            fetch(endPoint).then(response => response.json())
-            .then(response => {
-                        console.log("mian",response)
-                // put info about response.result[0] into MainMovieImage
-                setMainMovieImage(response)
-                    })
-            })
-
-        //    fetch(endPoint).then(response => response.json())
-        //     .then(response => {
-        //                 console.log("mian",response)
-        //                 // put info about response.result[0] into MainMovieImage
-        //         setMainMovieImage(response)
-        //             })
-    }, [])
-     
 
     //MovieInfo
 
@@ -53,25 +28,39 @@ function MovieInfo(props) {
 
     useEffect(() => {
 
+        // get api
+        axios.post('/api/movieapi')
+        .then(response => {
+        const API_KEY = response.data;
+
+        const endPoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US&page=1`;
+               
+            fetch(endPoint).then(response => response.json())
+            .then(response => {
+            // put info about response.result[0] into MainMovieImage
+            setMainMovieImage(response)
+            })
+                
         const castInfo = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
         const movieDetails = `${API_URL}movie/${movieId}?api_key=${API_KEY}`
+
 
         fetch(movieDetails)
             .then(response => response.json())
             .then(response => {
-                // console.log(response)
-                setMovie(response)
-        setGenre(response.genres);
+            setMovie(response)
+            setGenre(response.genres);
             })
         
         fetch(castInfo)
             .then(response => response.json())
             .then(response => {
-                setCast(response.cast)
-                console.log("crew",response.cast)
+            setCast(response.cast)
+            })
         })
-
+        
     }, [])
+     
 
     const onViewCast = () =>{
         setViewCast(!ViewCast)

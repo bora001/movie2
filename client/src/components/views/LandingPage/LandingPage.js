@@ -32,7 +32,7 @@ function LandingPage(props) {
         })
 
         //get api?
-            axios.get('/api/movieapi')
+            axios.post('/api/movieapi')
                 .then(response => {
                     // console.log(response.data)
                     API_KEY = response.data
