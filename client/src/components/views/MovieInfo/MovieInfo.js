@@ -29,7 +29,7 @@ function MovieInfo(props) {
             fetch(endPoint).then(response => response.json())
             .then(response => {
                         console.log("mian",response)
-                        // put info about response.result[0] into MainMovieImage
+                // put info about response.result[0] into MainMovieImage
                 setMainMovieImage(response)
                     })
             })

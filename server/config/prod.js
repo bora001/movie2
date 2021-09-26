@@ -1,4 +1,4 @@
 module.exports = {
-    mongoUrl: precess.env.MONGO_URL,
+    mongoUrl: precess.env.mongoUrl,
     movieAPI: process.env.MOVIE_API
 }
