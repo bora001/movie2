@@ -10,13 +10,6 @@ import reduxThunk from 'redux-thunk'
 import Reducer from './_reducers'
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, reduxThunk)(createStore);
 
-const express = require('express')
-const app = express()
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("server/build"));
-}
-
-
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(Reducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ &&

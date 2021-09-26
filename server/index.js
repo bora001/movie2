@@ -102,6 +102,9 @@ app.get('/api/users/logout', auth, (req, res) => {
     })
 })
 
-
+//get api
+app.get('/api/movieapi', (req, res) => {
+    res.send(config.movieAPI)
+})
 
 app.listen(port, () => console.log(`localhost:${port}`))

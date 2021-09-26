@@ -7,8 +7,7 @@ import { API_URL, IMAGE_URL } from '../../../Config'
 import MainImage from './MovieSection/MainImage'
 import Grid from './../../common/Grid'
 import { Row } from 'antd';
-const config = require('../../config/key')
-const API_KEY = config.movieAPI;
+// import { API_KEY } from '../../../MovieApi'
 
 let status = {
         loginStatus:false
@@ -19,6 +18,7 @@ function LandingPage(props) {
     const [Movies, setMovies] = useState([])
     const [MainMovieImage, setMainMovieImage] = useState(null)
     const [loadPage, setloadPage] = useState(0)
+    let API_KEY = '';
 
     useEffect(() => {
 
@@ -30,9 +30,22 @@ function LandingPage(props) {
                 status.loginStatus = false
             }
         })
+
+        //get api?
+            axios.get('/api/movieapi')
+                .then(response => {
+                    // console.log(response.data)
+                    API_KEY = response.data
+                    // API_KEY = response.data;
+                    // console.log(API_KEY)
+                    const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+                    fetchMovie(endPoint)
+            })
         
-        const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-        fetchMovie(endPoint)
+                    console.log(API_KEY, "apii")
+        
+        // const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+        // fetchMovie(endPoint)
         
     }, [])
     

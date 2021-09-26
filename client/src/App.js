@@ -1,3 +1,4 @@
+import React, {useEffect} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +13,7 @@ import MovieInfo from './components/views/MovieInfo/MovieInfo';
 import FavPage from './components/views/FavPage/FavPage';
 
 function App() {
+  
   return (
       <Router>
           <div>

@@ -8,25 +8,38 @@ import { Row } from 'antd'
 import Grid from './../../common/Grid'
 
 import FavoriteBtn from './FavoriteBtn'
-const config = require('../../config/key')
-const API_KEY = config.movieAPI;
+// import{ API_KEY} from '../../../MovieApi'
+import axios from 'axios'
 
 function MovieInfo(props) {
 
-
+    let API_KEY = '';
     let movieId = props.match.params.movieId
 
     // MainImage
     const [MainMovieImage, setMainMovieImage] = useState(null)
-        const endPoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US&page=1`;
+        // const endPoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US&page=1`;
 
     useEffect(() => {
-           fetch(endPoint).then(response => response.json())
+        //get api
+            axios.get('/api/movieapi')
+            .then(response => {
+                API_KEY = response.data
+                const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+            fetch(endPoint).then(response => response.json())
             .then(response => {
                         console.log("mian",response)
                         // put info about response.result[0] into MainMovieImage
                 setMainMovieImage(response)
                     })
+            })
+
+        //    fetch(endPoint).then(response => response.json())
+        //     .then(response => {
+        //                 console.log("mian",response)
+        //                 // put info about response.result[0] into MainMovieImage
+        //         setMainMovieImage(response)
+        //             })
     }, [])
      
 
