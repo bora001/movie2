@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux'
+// import { patch } from "../../../server/router/favRouter";
 import { authUser } from '../_actions/user_action'
 
 export default function (SpecificComponent, option, adminRoute = null) {
@@ -7,7 +8,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
     function AuthCheck(props) {
 
         const dispatch = useDispatch();
-        
+
         useEffect(() => {
             dispatch(authUser())
                 .then(response => {
@@ -31,6 +32,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                 }).catch((err) => {
                     throw err
                 })
+                
         }, [])
            
             return (
