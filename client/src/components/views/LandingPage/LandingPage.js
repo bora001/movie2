@@ -30,17 +30,13 @@ function LandingPage(props) {
             }
         })
 
-        //get api?
+        //get api
             axios.post('/api/movieapi')
                 .then(response => {
                     API_KEY = response.data
                     const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
                     fetchMovie(endPoint)
             })
-        
-        
-        // const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-        // fetchMovie(endPoint)
         
     }, [])
     

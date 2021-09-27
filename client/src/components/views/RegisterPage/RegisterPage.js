@@ -31,8 +31,6 @@ function RegisterPage(props) {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        // console.log('email',Email)
-        // console.log('Password', Password)
         
         if (Password !== ConfirmPassword) {
             return alert('incorrect password, try again')

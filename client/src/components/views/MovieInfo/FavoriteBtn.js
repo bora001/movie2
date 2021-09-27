@@ -3,7 +3,6 @@ import axios from 'axios'
 
 function FavoriteBtn(props) {
 
-    // console.log("props",props)
     const movieId = props.movieId
     const movieTitle = props.movieInfo.title
     const moviePic = props.movieInfo.backdrop_path
@@ -24,7 +23,6 @@ function FavoriteBtn(props) {
     useEffect(() => {
         getFavNum()
         getFav()
-        // checkFav()
     }, [])
 
     
@@ -33,7 +31,6 @@ function FavoriteBtn(props) {
             .then(response => {
                 if (response.data.success) {
                     if (response.data.favorites.length == 1) {
-                        console.log("you you did")
                         setFaved(true)
                     } else {
                         setFaved(false)
@@ -44,23 +41,10 @@ function FavoriteBtn(props) {
             })
     }
 
-    // function checkFav() {
-    //     axios.post('/api/fav/favorited', favDetail)
-    //     .then(response => {
-    //         setFaved(response.favorited)
-    //         if (response.data.success) {
-    //             setFaved(response.data.favorited)
-    //         } else {
-    //             alert('failed to get your favorite information')
-    //         }
-    //     })    
-    // }
-
     function getFavNum() {
         axios.post('/api/fav/fav-num', favDetail)
         .then(response => {
             if (response.data.success) {
-                console.log(response.data)
                 setFavNum(response.data.favNum)
             } else {
                 alert('failed to get your favorite information')
@@ -76,7 +60,6 @@ function FavoriteBtn(props) {
                 axios.post('/api/fav/removeFav', favDetail)
                     .then(response => {
                         if (response.data.success) {
-                            console.log(response.data,"remove")
                             setFaved(!Faved)
                             setFavNum(FavNum - 1)
                         } else {
