@@ -2,11 +2,15 @@
     "name": "movie2",
     "version": "1.0.0",
     "homepage": "https://bora001.github.io/movie2/",
+    "engine": {
+        "node": "12.19.0",
+        "npm": "6.14.8"
+    },
     "scripts": {
         "start": "node server/index.js",
         "back": "nodemon server/index.js",
         "dev": "concurrently \"npm run back\" \"npm start --prefix client\"",
-        "heroku-build": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build",
+        "herokubuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build",
         "deploy": "gh-pages -d build",
         "predeploy": "npm run build"
     },
