@@ -8,11 +8,12 @@ const { auth } = require("./middleware/auth")
 const { User } = require("./models/User")
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static("client/build/static"));
-    app.get('*', (req, res) => {
-        // res.sendFile(path.resolve(__dirname, "../client","build","static","index.html"))
-        res.sendFile(path.resolve(__dirname, "index.html"))
-    })
+    console.log("hmmmmm production?????")
+    // app.use(express.static("client/build/static"));
+    // app.get('*', (req, res) => {
+    //     // res.sendFile(path.resolve(__dirname, "../client","build","static","index.html"))
+    //     res.sendFile(path.resolve(__dirname, "index.html"))
+    // })
 }
 
 const port = process.env.PORT || 5000
