@@ -15,9 +15,9 @@ export function loginUser(dataToSubmit) {
 };
 
 export function registerUser(dataToSubmit) {
-    console.log("registerUser",request)
 
     const request = axios.post('/api/register', dataToSubmit).then(response => response.data)
+    console.log("registerUser",request)
     
     return {
         type: REGISTER_USER,
@@ -26,10 +26,9 @@ export function registerUser(dataToSubmit) {
 };
 
 export function authUser() {
-    console.log("AuthUser",request)
 
-    const request = axios.get('/api/auth')
-        .then(response => response.data)
+    const request = axios.get('/api/auth').then(response => response.data)
+    console.log("AuthUser",request)
     
     return {
         type: AUTH_USER,
