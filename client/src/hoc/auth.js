@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux'
-// import { patch } from "../../../server/router/favRouter";
 import { authUser } from '../_actions/user_action'
 
 export default function (SpecificComponent, option, adminRoute = null) {
@@ -8,16 +7,17 @@ export default function (SpecificComponent, option, adminRoute = null) {
     function AuthCheck(props) {
 
         const dispatch = useDispatch();
-
+        
         useEffect(() => {
             dispatch(authUser())
                 .then(response => {
-                    console.log("hoc auth, response", response)
+                    console.log("hoc auth", response)
                     if (!response.payload.isAuth) {
                         //no login
                         if (option) {
                             props.history.push('/')
                         }
+                    
                     } else {
                         // did login
                         if (adminRoute && !response.payload.isAdmin) {
@@ -28,11 +28,10 @@ export default function (SpecificComponent, option, adminRoute = null) {
                                 props.history.push('/')
                             }
                         }
-                    }
-                }).catch((err) => {
-                    throw err
-                })
                 
+                    }
+                })
+
         }, [])
            
             return (
