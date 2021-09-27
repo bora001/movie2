@@ -11,7 +11,7 @@ app.use(
 createProxyMiddleware({
 
 
-target: 'https://localhost:5000',
+target: 'https://localhost:5000 || https://reactmovieapp2.herokuapp.com/',
 
 changeOrigin: true,
 
