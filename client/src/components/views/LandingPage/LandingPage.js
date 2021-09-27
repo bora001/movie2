@@ -19,6 +19,7 @@ function LandingPage(props) {
     const [loadPage, setloadPage] = useState(0)
     let API_KEY = '';
 
+    
     useEffect(() => {
 
         axios.get('/api/auth')
