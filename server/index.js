@@ -7,12 +7,6 @@ const config = require('./config/key')
 const { auth } = require("./middleware/auth")
 const { User } = require("./models/User")
 
-const router = express.Router()
-router.route('/')
-    .get((req, res) => {
-        res.sendFile(path.join(__dirname+'/client/build/index.html'));
-    });
-
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static("client/build"));
