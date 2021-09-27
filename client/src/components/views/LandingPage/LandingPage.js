@@ -21,7 +21,7 @@ function LandingPage(props) {
 
     useEffect(() => {
 
-        axios.get(`/api/users/auth`)
+        axios.get(`/api/auth`)
         .then(response => {
             if (response.data.isAuth) {
                 status.loginStatus = true
@@ -51,7 +51,7 @@ function LandingPage(props) {
     }
     
     const onLogoutHandler = () => {
-        axios.get(`/api/users/logout`)
+        axios.get(`/api/logout`)
         .then(response => {
             if (response.data.success) {
                 props.history.push("/login")

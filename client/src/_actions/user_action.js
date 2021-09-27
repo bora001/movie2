@@ -6,7 +6,7 @@ import {
 } from './types'
 
 export function loginUser(dataToSubmit) {
-    const request = axios.post('/api/users/login', dataToSubmit).then(response => response.data)
+    const request = axios.post('/api/login', dataToSubmit).then(response => response.data)
     
     return {
         type: LOGIN_USER,
@@ -15,7 +15,7 @@ export function loginUser(dataToSubmit) {
 };
 
 export function registerUser(dataToSubmit) {
-    const request = axios.post('/api/users/register', dataToSubmit).then(response => response.data)
+    const request = axios.post('/api/register', dataToSubmit).then(response => response.data)
     
     return {
         type: REGISTER_USER,
@@ -24,7 +24,7 @@ export function registerUser(dataToSubmit) {
 };
 
 export function authUser() {
-    const request = axios.get('/api/users/auth')
+    const request = axios.get('/api/auth')
         .then(response => response.data)
     
     return {

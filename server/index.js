@@ -36,7 +36,7 @@ app.get('/api/hello', (req, res) => {
     res.send("axiossssss")
 })
 
-app.post('/api/users/register', (req, res) => {
+app.post('/api/register', (req, res) => {
     const user = new User(req.body)
     user.save((err, userInfo) => {
         if (err) return res.json({ success: false, err })
@@ -46,7 +46,7 @@ app.post('/api/users/register', (req, res) => {
     })
 })
 
-app.post('/api/users/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     
     User.findOne({ email: req.body.email }, (err, user) => {
         if (!user) {
@@ -75,7 +75,7 @@ app.post('/api/users/login', (req, res) => {
     })
 })
 
-app.get('/api/users/auth', auth, (req, res) => {
+app.get('/api/auth', auth, (req, res) => {
 
     res.status(200).json({
         _id: req.user._id,
@@ -88,7 +88,7 @@ app.get('/api/users/auth', auth, (req, res) => {
     })
 })
 
-app.get('/api/users/logout', auth, (req, res) => {
+app.get('/api/logout', auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id },
         { token: '' }
         , (err, user) => {
