@@ -21,7 +21,7 @@ function LandingPage(props) {
 
     useEffect(() => {
 
-        axios.get(`/api/auth`)
+        axios.get('api/auth')
         .then(response => {
             if (response.data.isAuth) {
                 status.loginStatus = true
