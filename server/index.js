@@ -8,9 +8,9 @@ const { auth } = require("./middleware/auth")
 const { User } = require("./models/User")
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static("server/build"));
+    app.use(express.static("client/build"));
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, "../server","build","index.html"))
+        res.sendFile(path.resolve(__dirname, "../client","build","index.html"))
     })
 }
 
