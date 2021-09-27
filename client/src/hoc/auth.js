@@ -11,7 +11,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
         useEffect(() => {
             dispatch(authUser())
                 .then(response => {
-                    console.log("response",response)
+                    console.log("hoc auth, response",response)
                     if (!response.payload.isAuth) {
                         //no login
                         if (option) {
