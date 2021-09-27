@@ -18,7 +18,7 @@ mongoose.connect(config.mongoUrl, {
     useNewUrlParser:true,useUnifiedTopology:true
 }).then(()=>console.log("MongoDB is connected....")).catch(err=>console.log(err))
 
-app.get('/', (req, res) => res.send("this is main"))
+// app.get('/', (req, res) => res.send("this is main"))
 
 
 //client-axios
