@@ -7,7 +7,6 @@ import { API_URL, IMAGE_URL } from '../../../Config'
 import MainImage from './MovieSection/MainImage'
 import Grid from './../../common/Grid'
 import { Row } from 'antd';
-// import { API_KEY } from '../../../MovieApi'
 
 let status = {
         loginStatus:false
@@ -34,15 +33,11 @@ function LandingPage(props) {
         //get api?
             axios.post('/api/movieapi')
                 .then(response => {
-                    // console.log(response.data)
                     API_KEY = response.data
-                    // API_KEY = response.data;
-                    // console.log(API_KEY)
                     const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
                     fetchMovie(endPoint)
             })
         
-                    console.log(API_KEY, "apii")
         
         // const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
         // fetchMovie(endPoint)
@@ -58,12 +53,6 @@ function LandingPage(props) {
                         setloadPage(response.page)
                     })
     }
-        
-                    
-    // useEffect(() => {
-    //     axios.get('/api/hello')
-    //         .then(response => { console.log(response)})
-    // }, [])
     
     const onLogoutHandler = () => {
         axios.get(`/api/users/logout`)
@@ -82,8 +71,6 @@ function LandingPage(props) {
         fetchMovie(endPoint)
 
     }
-
-    // console.log(response)
 
     return (
         <div className="landing_page">

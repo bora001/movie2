@@ -19,7 +19,6 @@ router.post('/favorited', (req, res) => {
             if (err) {
                 return res.status(400).send(err)
             } else {
-                console.log("info",info)
                 let favResult = false
                 if (info.length !== 0) {
                     favResult = true
@@ -63,7 +62,6 @@ router.post('/getFav', (req, res) => {
 })
 
 router.post('/deleteFav', (req, res) => {
-    console.log(req.body)
     favorite.findOneAndDelete({ 'theUser': req.body.theUser })
         .exec((err, removefav) => {
             if (err) {
