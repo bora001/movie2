@@ -1,22 +1,13 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
-
-
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
+  app.use(
+    "/api",
 
-app.use(
-
-'/api',
-
-createProxyMiddleware({
-
-
-target: 'https://localhost:5000 || https://reactmovieapp2.herokuapp.com/',
-
-changeOrigin: true,
-
-})
-
-);
-
+    createProxyMiddleware({
+      //   target: "https://localhost:5000 || https://reactmovieapp2.herokuapp.com/",
+      target: "http://localhost:5000",
+      changeOrigin: true,
+    })
+  );
 };
